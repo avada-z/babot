@@ -2,6 +2,10 @@
 BOTAPI=
 URL=https://api.telegram.org/bot
 ID2=$(cat id_file.txt)
+ID=$ID2
+function medsend {
+curl $URL$BOTAPI/sendPhoto -F chat_id=$CHATID -F photo=@$PWD/botfiles/img.jpg
+}
 while :
 do
 MESSAGE=$(curl -X POST "$URL$BOTAPI/GetUpdates?offset=-1" | tr "," "\n")
@@ -28,7 +32,7 @@ echo $URLFILE
 wget -P $PWD/botfiles/ "$URLFILE"
 source func.sh
 proc
-curl $URL$BOTAPI/sendPhoto -F chat_id=$CHATID -F photo=@$PWD/botfiles/img.jpg
+#medsend
 ID2=$(echo $MESSAGEID)
 echo $ID2 > id_file.txt
 rm $PWD/botfiles/*.jpg
